@@ -48,11 +48,24 @@
   <link rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null" href="https://unpkg.com/milligram@1.3.0/dist/milligram.min.css">
 
   <style type="text/css">
-    #buttonDiv
+   #buttonDiv
     {
       z-index: 99;
     }
   </style>
+  <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script> 
+  
+    <script> 
+        $("#button").on('touchstart click', function(event) { 
+            if (event.type == "touchstart") { 
+                $(this).off('click'); 
+                console.log("Only touch event is fired"); 
+            } else if (event.type == "click") { 
+                $(this).off('touchstart'); 
+                console.log("Only click event is fired"); 
+            } 
+        }); 
+    </script> 
 </head>
 
 <body>
@@ -67,8 +80,8 @@
       </p>
 
       <div id="buttonDiv">
-	      <a><button class="button" id="startButton"> Start </button> </a>
-	      <a> <button class="button"  id="resetButton"> Reset </button></a>
+        <a><button class="button" id="startButton"> Start </button> </a>
+        <a> <button class="button"  id="resetButton"> Reset </button></a>
       </div>
 
       <div>
@@ -175,8 +188,29 @@
             sourceSelectPanel.style.display = 'block'
           }
 
-          document.getElementById('startButton').addEventListener('click', 
-            function(){
+          // touchstart handler 
+          document.getElementById('startButton').addEventListener("touchStart", onlyTouch, false);  
+    
+          function onlyTouch(ev)
+          { 
+            document.getElementById('result').textContent = 'clicked';
+            const decodingStyle = document.getElementById('decoding-style').value;
+
+            if (decodingStyle == "once") {
+              decodeOnce(codeReader, selectedDeviceId);
+            } else {
+              decodeContinuously(codeReader, selectedDeviceId);
+            }
+
+            console.log(`Started decode from camera with id ${selectedDeviceId}`);
+            ev.preventDefault(); 
+          }
+    
+          // click event handler 
+          document.getElementById('startButton').addEventListener("click", onlyClick, false);  
+    
+          function onlyClick(ev)
+          {
             //alert("hii"); 
             document.getElementById('result').textContent = 'clicked';
             const decodingStyle = document.getElementById('decoding-style').value;
@@ -187,25 +221,10 @@
               decodeContinuously(codeReader, selectedDeviceId);
             }
 
-            console.log(`Started decode from camera with id ${selectedDeviceId}`)
-          })
+            console.log(`Started decode from camera with id ${selectedDeviceId}`);
+            ev.preventDefault(); 
+          }
 
-          
-           
-      	document..getElementById('startButton')addEventListener("touchstart", 
-	function(){
-	  
-	  document.getElementById('result').textContent = 'clicked';
-	  const decodingStyle = document.getElementById('decoding-style').value;
-
-	  if (decodingStyle == "once") {
-	    decodeOnce(codeReader, selectedDeviceId);
-	  } else {
-	    decodeContinuously(codeReader, selectedDeviceId);
-	  }
-
-	  console.log(`Started decode from camera with id ${selectedDeviceId}`)
-	}, false);
           
 
           document.getElementById('resetButton').addEventListener('click', () => {
