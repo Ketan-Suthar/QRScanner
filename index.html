@@ -55,17 +55,7 @@
   </style>
   <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script> 
   
-    <script> 
-        $("#button").on('touchstart click', function(event) { 
-            if (event.type == "touchstart") { 
-                $(this).off('click'); 
-                console.log("Only touch event is fired"); 
-            } else if (event.type == "click") { 
-                $(this).off('touchstart'); 
-                console.log("Only click event is fired"); 
-            } 
-        }); 
-    </script> 
+    
 </head>
 
 <body>
