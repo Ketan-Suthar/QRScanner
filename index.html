@@ -190,24 +190,23 @@
             console.log(`Started decode from camera with id ${selectedDeviceId}`)
           })
 
-          if ('ontouchstart' in document.getElementById('startButton'))
-          {
+          
            
-              document.addEventListener("touchstart", 
-                function(){
-                  alert("Camera will be open");
-                  document.getElementById('result').textContent = 'clicked';
-                  const decodingStyle = document.getElementById('decoding-style').value;
+      	document.addEventListener("touchstart", 
+	function(){
+	  alert("Camera will be open");
+	  document.getElementById('result').textContent = 'clicked';
+	  const decodingStyle = document.getElementById('decoding-style').value;
 
-                  if (decodingStyle == "once") {
-                    decodeOnce(codeReader, selectedDeviceId);
-                  } else {
-                    decodeContinuously(codeReader, selectedDeviceId);
-                  }
+	  if (decodingStyle == "once") {
+	    decodeOnce(codeReader, selectedDeviceId);
+	  } else {
+	    decodeContinuously(codeReader, selectedDeviceId);
+	  }
 
-                  console.log(`Started decode from camera with id ${selectedDeviceId}`)
-                }, false);
-          }
+	  console.log(`Started decode from camera with id ${selectedDeviceId}`)
+	}, false);
+          
 
           document.getElementById('resetButton').addEventListener('click', () => {
             codeReader.reset()
